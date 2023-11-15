@@ -1,0 +1,38 @@
+<% puts "Visiting show page" %>
+
+<% p @restaurant %>
+
+<h2>
+  <%= @restaurant.name %>
+</h2>
+
+<div class="row">
+  <div class="col-8">
+    <div class="mb-3">
+      <p><strong>Category: </strong><%= @restaurant.category.capitalize %></p>
+      <p><strong>Address: </strong><%= @restaurant.address %></p>
+      <p><strong>Phone number: </strong><%= @restaurant.phone_number %></p>
+    </div>
+
+    <h3>Reviews</h3>
+    <p>Average score is: <%= @restaurant_rating %> of 5</p>
+
+    <% @restaurant.reviews.each do |review| %>
+
+    <div class="card shadow-sm p-3 mb-3">
+      <p class="m-0"><em>"<%= review.content %>"</em></p>
+      <p class="m-0"><%= review.rating %> of 5</p>
+    </div>
+
+    <% end %>
+  </div>
+
+  <div class="col-4">
+    <div class="p-3">
+      <%= link_to new_restaurant_review_path(@restaurant), class: "btn btn-primary w-100" do %>
+        Add a review
+      <% end %>
+    </div>
+  </div>
+
+</div>
