@@ -16,7 +16,11 @@
     </div>
 
     <h3>Reviews</h3>
-    <p><%= (@restaurant.reviews.average(:rating) * 2.0).round / 2.0 %> of 5 average rating from <%= @restaurant.reviews.count(:rating) %> ratings</p>
+    <% if @restaurant.reviews.count(:rating) > 0 %>
+      <p><%= (@restaurant.reviews.average(:rating) * 2.0).round / 2.0 %> of 5 average rating from <%= @restaurant.reviews.count(:rating) %> ratings</p>
+    <% else %>
+      <p>No ratings yet, be the first!</p>
+    <% end %>
 
     <% @restaurant.reviews.each do |review| %>
 
