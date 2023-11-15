@@ -1,12 +1,13 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurants, only: [ :index ]
   before_action :set_restaurant, only: [ :show ]
-  before_action :set_restaurant_rating, only: [ :show ]
+
 
   def index
   end
 
   def show
+    @review = Review.new
   end
 
   def new
@@ -38,16 +39,4 @@ class RestaurantsController < ApplicationController
   def restaurant_params
     params.require(:restaurant).permit(:name, :address, :phone_number, :category)
   end
-
-  def set_restaurant_rating
-    arr = []
-    @restaurant.reviews.each { |review| arr.push(review.rating.to_i)}
-    @restaurant_rating = arr.inject(0.0) { |sum, el| sum + el } / arr.size
-  end
-
 end
-
-
-# @restaurant.reviews.each do |review|
-#   @average_rating += review.rating.to_i
-# end

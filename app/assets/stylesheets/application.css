@@ -13,3 +13,9 @@
  *= require_tree .
  *= require_self
  */
+
+
+ .card-image {
+  height: 200px;
+  object-fit: cover;
+ }

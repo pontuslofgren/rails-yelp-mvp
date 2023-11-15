@@ -2,12 +2,13 @@
 
 <% p @restaurant %>
 
-<h2>
-  <%= @restaurant.name %>
-</h2>
+
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-lg-8">
+    <h2>
+      <%= @restaurant.name %>
+  </h2>
     <div class="mb-3">
       <p><strong>Category: </strong><%= @restaurant.category.capitalize %></p>
       <p><strong>Address: </strong><%= @restaurant.address %></p>
@@ -15,7 +16,7 @@
     </div>
 
     <h3>Reviews</h3>
-    <p>Average score is: <%= @restaurant_rating %> of 5</p>
+    <p><%= (@restaurant.reviews.average(:rating) * 2.0).round / 2.0 %> of 5 average rating from <%= @restaurant.reviews.count(:rating) %> ratings</p>
 
     <% @restaurant.reviews.each do |review| %>
 
@@ -27,11 +28,15 @@
     <% end %>
   </div>
 
-  <div class="col-4">
+  <div class="col-lg-4">
+    <h3>Add a review</h3>
     <div class="p-3">
-      <%= link_to new_restaurant_review_path(@restaurant), class: "btn btn-primary w-100" do %>
-        Add a review
+      <%= simple_form_for([@restaurant, @review]) do |f| %>
+        <%= f.input :rating, collection: [1, 2, 3, 4 ,5] ,as: :select %>
+        <%= f.input :content %>
+        <%= f.submit class:"btn btn-primary" %>
       <% end %>
+
     </div>
   </div>
 
